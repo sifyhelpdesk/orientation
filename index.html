@@ -3,104 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apple-Like Smooth Scroll</title>
+    <title>3D Carousel</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
         }
         body {
-            background: #000;
-            color: #fff;
-            overflow-x: hidden;
-        }
-        section {
-            height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            transition: opacity 0.5s ease-in-out;
-        }
-        .hero {
-            background: url('https://www.sifytechnologies.com/wp-content/uploads/2023/04/homebanner2_new.jpg') no-repeat center;
-            background-size: cover;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            perspective: 1000px;
         }
         .carousel {
-            display: flex;
-            overflow: hidden;
-            width: 98%;
-            height: 55%;
             position: relative;
+            width: 800px;
+            height: 400px;
+            transform-style: preserve-3d;
+            animation: rotate 25s infinite linear;
         }
-        .carousel img {
-            width: 100vw;
-            flex-shrink: 0;
-            transition: transform 0.5s ease-in-out;
-        }
-        .scroll-content {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .buttons {
+        .carousel div {
             position: absolute;
-            top: 50%;
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            transform: translateY(-50%);
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            box-shadow: 0 50px 50px rgba(0, 0, 0, 0.3);
         }
-        .buttons button {
-            background: rgba(255, 255, 255, 0.5);
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
+        .carousel div:nth-child(1) { transform: rotateY(0deg) translateZ(300px); background-image: url('assets/Pictures/Img_1.png');}
+        .carousel div:nth-child(2) { transform: rotateY(120deg) translateZ(300px); background-image: url('assets/Pictures/Img_2.png'); }
+        .carousel div:nth-child(3) { transform: rotateY(240deg) translateZ(300px); background-image: url('assets/Pictures/Img_3.png'); }
+        @keyframes rotate {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
         }
     </style>
 </head>
 <body>
-    <section class="hero">
-        <h1 class="scroll-content">Welcome to Sify Centralized Helpdesk Orientation</h1>
-    </section>
-    <section class="carousel-container">
-        <div class="carousel">
-            <img src="/assets/Pictures/Img_1.png" alt="Image 1">
-            <img src="/assets/Pictures/Img_2.png" alt="Image 2">
-            <img src="/assets/Pictures/Img_3.png" alt="Image 3">
-        </div>
-        <div class="buttons">
-            <button onclick="prevSlide()">&#10094;</button>
-            <button onclick="nextSlide()">&#10095;</button>
-        </div>
-    </section>
-    <section>
-        <h2 class="scroll-content">Experience Technology Like Never Before</h2>
-    </section>
-    <script>
-        document.addEventListener("scroll", function () {
-            document.querySelectorAll(".scroll-content").forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight * 0.75) {
-                    el.classList.add("visible");
-                }
-            });
-        });
+    <div class="carousel">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    
 
-        let index = 0;
-        function showSlide(n) {
-            let slides = document.querySelectorAll(".carousel img");
-            if (n >= slides.length) index = 0;
-            if (n < 0) index = slides.length - 1;
-            slides.forEach(img => img.style.transform = `translateX(-${index * 100}vw)`);
-        }
-        function nextSlide() { index++; showSlide(index); }
-        function prevSlide() { index--; showSlide(index); }
-    </script>
 </body>
 </html>
